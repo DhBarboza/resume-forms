@@ -2,6 +2,7 @@ const form = document.getElementById("forms");
 const nome = document.getElementById("username");
 const email = document.getElementById("email");
 const cpf = document.getElementById("cpf");
+const matricula = document.getElementById("matricula");
 const arquivo = document.getElementById("file-upload");
 const check = document.getElementById("checkbox");
 
@@ -32,6 +33,14 @@ form.addEventListener("submit", function (event) {
         hideError(cpf);
     }
 
+     // Verificar campo Matricula
+     if (cpf.value.trim() === "") {
+        isValid = false;
+        showError(matricula, "Matricula não pode estar em branco");
+    } else {
+        hideError(matricula);
+    }
+
     // Verificar campo arquivo
     if (arquivo.files.length === 0) {
         isValid = false;
@@ -51,6 +60,9 @@ form.addEventListener("submit", function (event) {
     // Prevenir envio do formulário se inválido
     if (!isValid) {
         event.preventDefault();
+    } else {
+        event.preventDefault();
+        submitForm();
     }
 });
 
@@ -68,4 +80,60 @@ function hideError(input) {
     errorElement.textContent = "";
     errorElement.style.visibility = "hidden";
     formContent.classList.remove("error");
+}
+
+/* Enviando os dados para o Power Automate */
+async function submitForm() {
+    const form = document.getElementById('forms');
+    const formData = new FormData(form);
+
+    const name = formData.get('username');
+    const email = formData.get('email');
+    const cpf = formData.get('cpf');
+    const matricula = formData.get('matricula');
+    const file = formData.get('file-upload');
+
+    //Variável que irá ler o arquivo
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const fileContent = e.target.result;
+        const base64File = fileContent.split(',')[1];
+
+        //objeto que irá armazenar os dados do form e o arquivo em base64
+        const payload = {
+            name: name,
+            email: email,
+            cpf: cpf,
+            matricula: matricula,
+            //file: `data:${file.type};base64,${base64File}`,
+            file: base64File,
+            fileName: file.name
+        };
+
+        //Armazena a url gerada no Power Automate
+        const powerAutomateUrl = 'https://prod2-00.brazilsouth.logic.azure.com:443/workflows/fc458bc703644c0aad1ce89ed4364ead/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S-aUojVXjNaHBk4amiybGDeVIb3taHu_RhCuMOjxMkI';
+
+        //Enviando a requisição para o Power Automate
+        try {
+            const response = await fetch(powerAutomateUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            //Aguarda o retorno do Power Automate
+            const responseData = await response.json();
+
+            if (!response.ok) {
+                throw new Error(responseData.message);
+            }
+
+            alert(responseData.message);
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+    reader.readAsDataURL(file);
 }
