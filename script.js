@@ -33,8 +33,8 @@ form.addEventListener("submit", function (event) {
         hideError(cpf);
     }
 
-     // Verificar campo Matricula
-     if (cpf.value.trim() === "") {
+    // Verificar campo Matricula
+    if (cpf.value.trim() === "") {
         isValid = false;
         showError(matricula, "Matricula não pode estar em branco");
     } else {
@@ -84,20 +84,20 @@ function hideError(input) {
 
 /* Enviando os dados para o Power Automate */
 async function submitForm() {
-    const form = document.getElementById('forms');
+    const form = document.getElementById("forms");
     const formData = new FormData(form);
 
-    const name = formData.get('username');
-    const email = formData.get('email');
-    const cpf = formData.get('cpf');
-    const matricula = formData.get('matricula');
-    const file = formData.get('file-upload');
+    const name = formData.get("username");
+    const email = formData.get("email");
+    const cpf = formData.get("cpf");
+    const matricula = formData.get("matricula");
+    const file = formData.get("file-upload");
 
     //Variável que irá ler o arquivo
     const reader = new FileReader();
-    reader.onload = async function(e) {
+    reader.onload = async function (e) {
         const fileContent = e.target.result;
-        const base64File = fileContent.split(',')[1];
+        const base64File = fileContent.split(",")[1];
 
         //objeto que irá armazenar os dados do form e o arquivo em base64
         const payload = {
@@ -107,22 +107,23 @@ async function submitForm() {
             matricula: matricula,
             //file: `data:${file.type};base64,${base64File}`,
             file: base64File,
-            fileName: file.name
+            fileName: file.name,
         };
 
         //Armazena a url gerada no Power Automate
-        const powerAutomateUrl = 'https://prod2-00.brazilsouth.logic.azure.com:443/workflows/fc458bc703644c0aad1ce89ed4364ead/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S-aUojVXjNaHBk4amiybGDeVIb3taHu_RhCuMOjxMkI';
+        const powerAutomateUrl =
+            "https://prod2-00.brazilsouth.logic.azure.com:443/workflows/fc458bc703644c0aad1ce89ed4364ead/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S-aUojVXjNaHBk4amiybGDeVIb3taHu_RhCuMOjxMkI";
 
         //Enviando a requisição para o Power Automate
         try {
             const response = await fetch(powerAutomateUrl, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
             });
-            
+
             //Aguarda o retorno do Power Automate
             const responseData = await response.json();
 
@@ -134,6 +135,6 @@ async function submitForm() {
         } catch (error) {
             alert(error.message);
         }
-    }
+    };
     reader.readAsDataURL(file);
 }
