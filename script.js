@@ -6,14 +6,24 @@ const matricula = document.getElementById("matricula");
 const arquivo = document.getElementById("file-upload");
 const check = document.getElementById("checkbox");
 
+let isValid = true;
+
 form.addEventListener("submit", (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     checkInputNome();
     checkInputEmail();
     checkInputCpf();
     checkInputArquivo();
     checkInputCheck();
     // checkInputMatricula();
+
+    // Prevenir envio do formulário se inválido
+    if (!isValid) {
+        event.preventDefault();
+    } else {
+        event.preventDefault();
+        submitForm();
+    }
 });
 
 // Verifica se o campo "nome" está preenchido:
@@ -21,6 +31,7 @@ function checkInputNome() {
     const nameValue = nome.value;
 
     if (nameValue === "") {
+        isValid = false;
         errorView(nome, "Preencha o seu nome");
     } else {
         const formItem = nome.parentElement;
@@ -33,6 +44,7 @@ function checkInputEmail() {
     const emailValue = email.value;
 
     if (emailValue === "") {
+        isValid = false;
         errorView(email, "Preencha com o seu email");
     } else {
         const formItem = email.parentElement;
@@ -45,6 +57,7 @@ function checkInputCpf() {
     const cpfValue = cpf.value;
 
     if (cpfValue === "") {
+        isValid = false;
         errorView(cpf, "Preencha com o seu cpf");
     } else {
         const formItem = cpf.parentElement;
@@ -52,25 +65,12 @@ function checkInputCpf() {
     }
 }
 
-/*
-// Verifica se o campo "matricula" está preenchido:
-function checkInputMatricula() {
-    const matriculaValue = matricula.value;
-
-    if (matriculaValue === "") {
-        errorView(matricula, "Preencha com o seu matricula");
-    } else {
-        const formItem = matricula.parentElement;
-        formItem.className = "form-content";
-    }
-}
-*/
-
 // Verifica se o campo "arquivo" está preenchido:
 function checkInputArquivo() {
     const arquivoValue = arquivo.value;
 
     if (arquivoValue.length === 0) {
+        isValid = false;
         errorView(arquivo, "Preencha com o seu cúrriculo");
     } else {
         const formItem = arquivo.parentElement;
@@ -83,6 +83,7 @@ function checkInputCheck() {
     const checkValue = check.checked;
     console.log(checkValue);
     if (!checkValue) {
+        isValid = false;
         errorView(check, "Concorde com o termo");
     } else {
         const formItem = check.parentElement;
@@ -98,85 +99,7 @@ function errorView(input, message) {
     formItem.className = "form-content error";
 }
 
-/*form.addEventListener("submit", function (event) {
-    let isValid = true;
-
-    // Verificar campo nome
-    if (nome.value.trim() === "") {
-        isValid = false;
-        showError(nome, "Nome não pode estar em branco");
-    } else {
-        hideError(nome);
-    }
-
-    // Verificar campo email
-    if (email.value.trim() === "") {
-        isValid = false;
-        showError(email, "E-mail não pode estar em branco");
-    } else {
-        hideError(email);
-    }
-
-    // Verificar campo CPF
-    if (cpf.value.trim() === "") {
-        isValid = false;
-        showError(cpf, "CPF não pode estar em branco");
-    } else {
-        hideError(cpf);
-    }
-
-    // Verificar campo Matricula
-    if (cpf.value.trim() === "") {
-        isValid = false;
-        showError(matricula, "Matricula não pode estar em branco");
-    } else {
-        hideError(matricula);
-    }
-
-    // Verificar campo arquivo
-    if (arquivo.files.length === 0) {
-        isValid = false;
-        showError(arquivo, "É necessário anexar um arquivo");
-    } else {
-        hideError(arquivo);
-    }
-
-    // Verificar checkbox
-    if (!check.checked) {
-        isValid = false;
-        showError(check, "Você deve aceitar os termos");
-    } else {
-        hideError(check);
-    }
-
-    // Prevenir envio do formulário se inválido
-    if (!isValid) {
-        event.preventDefault();
-    } else {
-        event.preventDefault();
-        submitForm();
-    }
-});*/
-
-/*
-function showError(input, message) {
-    const formContent = input.parentElement;
-    const errorElement = formContent.querySelector("a");
-    errorElement.textContent = message;
-    errorElement.style.visibility = "visible";
-    formContent.classList.add("error");
-}
-
-function hideError(input) {
-    const formContent = input.parentElement;
-    const errorElement = formContent.querySelector("a");
-    errorElement.textContent = "";
-    errorElement.style.visibility = "hidden";
-    formContent.classList.remove("error");
-}*/
-
 /* Enviando os dados para o Power Automate */
-/*
 async function submitForm() {
     const form = document.getElementById("forms");
     const formData = new FormData(form);
@@ -231,4 +154,4 @@ async function submitForm() {
         }
     };
     reader.readAsDataURL(file);
-}*/
+}
