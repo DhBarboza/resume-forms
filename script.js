@@ -6,7 +6,99 @@ const matricula = document.getElementById("matricula");
 const arquivo = document.getElementById("file-upload");
 const check = document.getElementById("checkbox");
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    checkInputNome();
+    checkInputEmail();
+    checkInputCpf();
+    checkInputArquivo();
+    checkInputCheck();
+    // checkInputMatricula();
+});
+
+// Verifica se o campo "nome" está preenchido:
+function checkInputNome() {
+    const nameValue = nome.value;
+
+    if (nameValue === "") {
+        errorView(nome, "Preencha o seu nome");
+    } else {
+        const formItem = nome.parentElement;
+        formItem.className = "form-content";
+    }
+}
+
+// Verifica se o campo "email" está preenchido:
+function checkInputEmail() {
+    const emailValue = email.value;
+
+    if (emailValue === "") {
+        errorView(email, "Preencha com o seu email");
+    } else {
+        const formItem = email.parentElement;
+        formItem.className = "form-content";
+    }
+}
+
+// Verifica se o campo "cpf" está preenchido:
+function checkInputCpf() {
+    const cpfValue = cpf.value;
+
+    if (cpfValue === "") {
+        errorView(cpf, "Preencha com o seu cpf");
+    } else {
+        const formItem = cpf.parentElement;
+        formItem.className = "form-content";
+    }
+}
+
+/*
+// Verifica se o campo "matricula" está preenchido:
+function checkInputMatricula() {
+    const matriculaValue = matricula.value;
+
+    if (matriculaValue === "") {
+        errorView(matricula, "Preencha com o seu matricula");
+    } else {
+        const formItem = matricula.parentElement;
+        formItem.className = "form-content";
+    }
+}
+*/
+
+// Verifica se o campo "arquivo" está preenchido:
+function checkInputArquivo() {
+    const arquivoValue = arquivo.value;
+
+    if (arquivoValue.length === 0) {
+        errorView(arquivo, "Preencha com o seu cúrriculo");
+    } else {
+        const formItem = arquivo.parentElement;
+        formItem.className = "form-content";
+    }
+}
+
+// Verifica se o campo "check" está preenchido:
+function checkInputCheck() {
+    const checkValue = check.checked;
+    console.log(checkValue);
+    if (!checkValue) {
+        errorView(check, "Concorde com o termo");
+    } else {
+        const formItem = check.parentElement;
+        formItem.className = "form-content";
+    }
+}
+
+function errorView(input, message) {
+    const formItem = input.parentElement;
+    const textMessage = formItem.querySelector("a");
+
+    textMessage.innerText = message;
+    formItem.className = "form-content error";
+}
+
+/*form.addEventListener("submit", function (event) {
     let isValid = true;
 
     // Verificar campo nome
@@ -64,8 +156,9 @@ form.addEventListener("submit", function (event) {
         event.preventDefault();
         submitForm();
     }
-});
+});*/
 
+/*
 function showError(input, message) {
     const formContent = input.parentElement;
     const errorElement = formContent.querySelector("a");
@@ -80,9 +173,10 @@ function hideError(input) {
     errorElement.textContent = "";
     errorElement.style.visibility = "hidden";
     formContent.classList.remove("error");
-}
+}*/
 
 /* Enviando os dados para o Power Automate */
+/*
 async function submitForm() {
     const form = document.getElementById("forms");
     const formData = new FormData(form);
@@ -137,4 +231,4 @@ async function submitForm() {
         }
     };
     reader.readAsDataURL(file);
-}
+}*/
