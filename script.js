@@ -151,18 +151,31 @@ async function submitForm() {
                 throw new Error(responseData.message);
             }
 
-            //alert(responseData.message);
-            document.getElementById("pop-up").style.display = "block";
+            const popUp = document.getElementById("pop-up");
+            const modalContent = document.getElementById("modal-content");
+            const icon = document.getElementById("icon");
+            const message = modalContent.querySelector("p");
 
-             // Resetar o formulário após sucesso
-             form.reset();
+            if (responseData.message === "Cadastro já existente !") {
+                icon.innerHTML = "&#9888;"; // Ícone de aviso
+                message.innerText = "Cadastro já existente !";
+            } else {
+                icon.innerHTML = "&#10004;"; // Ícone de sucesso
+                message.innerText = "Currículo cadastrado com sucesso !";
+            }
 
-             // Resetar a exibição de erros
-             const formItems = document.querySelectorAll(".form-content");
-             formItems.forEach((item) => {
-                 item.className = "form-content";
-             });
-             
+            popUp.style.display = "block";
+
+            if (responseData.message !== "Cadastro já existente !") {
+                // Resetar o formulário após sucesso
+                form.reset();
+                // Resetar a exibição de erros
+                const formItems = document.querySelectorAll(".form-content");
+                formItems.forEach((item) => {
+                    item.className = "form-content";
+                });
+            }
+
         } catch (error) {
             alert(error.message);
         }
