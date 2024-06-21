@@ -1,0 +1,65 @@
+#terms-pop-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+#overlay-terms {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+#modal-terms {
+    display: block;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left; /* Alinhamento do texto à esquerda */
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    z-index: 3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#close-terms {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px; /* Tamanho de fonte ajustado para telas menores */
+    cursor: pointer;
+}
+
+#modal-terms-content {
+    margin-top: 20px;
+}
+
+#modal-terms-content p {
+    text-align: justify; /* Justificar o texto */
+    font-size: 14px; /* Tamanho de fonte ajustado para telas menores */
+    line-height: 1.6; /* Espaçamento entre linhas para melhor legibilidade */
+}
+
+#modal-terms-content strong {
+    text-align: left; /* Alinha o texto dentro da tag <strong> à esquerda */
+    display: block; /* Garante que <strong> seja exibido como bloco */
+    font-weight: bold; /* Garante que o texto dentro de <strong> seja em negrito */
+}
