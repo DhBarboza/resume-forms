@@ -11,6 +11,15 @@ document.getElementById("close").addEventListener("click", function () {
     document.getElementById("pop-up").style.display = "none";
 });
 
+document.getElementById("terms-link").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("terms-pop-up").style.display = "block";
+});
+
+document.getElementById("close-terms").addEventListener("click", function() {
+    document.getElementById("terms-pop-up").style.display = "none";
+});
+
 form.addEventListener("submit", (event) => {
     //event.preventDefault();
     checkInputNome();
