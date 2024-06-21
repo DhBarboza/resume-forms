@@ -152,11 +152,17 @@ async function submitForm() {
             }
 
             //alert(responseData.message);
-            document
-                .getElementById("close")
-                .addEventListener("click", function () {
-                    document.getElementById("pop-up").style.display = "block";
-                });
+            document.getElementById("pop-up").style.display = "block";
+
+             // Resetar o formulário após sucesso
+             form.reset();
+
+             // Resetar a exibição de erros
+             const formItems = document.querySelectorAll(".form-content");
+             formItems.forEach((item) => {
+                 item.className = "form-content";
+             });
+             
         } catch (error) {
             alert(error.message);
         }
