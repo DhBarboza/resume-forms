@@ -5,8 +5,11 @@ const cpf = document.getElementById("cpf");
 const matricula = document.getElementById("matricula");
 const arquivo = document.getElementById("file-upload");
 const check = document.getElementById("checkbox");
-
 let isValid = true;
+
+document.getElementById("close").addEventListener("click", function () {
+    document.getElementById("pop-up").style.display = "none";
+});
 
 form.addEventListener("submit", (event) => {
     //event.preventDefault();
@@ -148,7 +151,12 @@ async function submitForm() {
                 throw new Error(responseData.message);
             }
 
-            alert(responseData.message);
+            //alert(responseData.message);
+            document
+                .getElementById("close")
+                .addEventListener("click", function () {
+                    document.getElementById("pop-up").style.display = "block";
+                });
         } catch (error) {
             alert(error.message);
         }
