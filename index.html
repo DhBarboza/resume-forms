@@ -16,7 +16,7 @@
         <title>Cadastrar currículo</title>
     </head>
     <body>
-        <div id="pop-up" style="display: none;">
+        <div id="pop-up" style="display: none">
             <div id="overlay"></div>
             <div id="modal">
                 <span id="close">&times;</span>
@@ -26,18 +26,39 @@
                 </div>
             </div>
         </div>
-        <div id="terms-pop-up" style="display: none;">
-    <div id="overlay-terms"></div>
-    <div id="modal-terms">
-        <span id="close-terms">&times;</span>
-        <div id="modal-terms-content">
-            <p>
-                <strong>TERMO DE CONSENTIMENTO PARA O TRATAMENTO DE DADOS PESSOAIS NO RECEBIMENTO DE CURRÍCULOS</strong><br /><br />
-                O CANDIDATO/COOPERADO (titular de dados pessoais) ao enviar seu currículo, DECLARA expressamente seu CONSENTIMENTO, tendo plena ciência dos direitos e obrigações decorrentes deste instrumento, CONCORDANDO que seus dados pessoais sejam tratados na forma descrita acima, para a finalidade única e exclusiva de realizar as ações relacionadas ao recebimento de currículo, sua avaliação, e indicação para eventual alocação em projeto de tomadores de serviços da cooperativa, declarando ainda ter lido, compreendido e aceitado todos os termos e condições aqui descritos, em conformidade com a Lei nº 13.709/18 - Lei Geral de Proteção de Dados Pessoais (LGPD). O Candidato, ainda, declara ciência e concordância de que seu currículo poderá ser armazenado em banco de dados para futuras alocações, até que ocorra a revogação deste Termo de Consentimento, o que poderá ser feito a qualquer momento por meio do canal de atendimento aos direitos dos titulares através deste contato:_______.
-            </p>
+        <div id="terms-pop-up" style="display: none">
+            <div id="overlay-terms"></div>
+            <div id="modal-terms">
+                <span id="close-terms">&times;</span>
+                <div id="modal-terms-content">
+                    <p>
+                        <strong
+                            >TERMO DE CONSENTIMENTO PARA O TRATAMENTO DE DADOS
+                            PESSOAIS NO RECEBIMENTO DE CURRÍCULOS</strong
+                        ><br /><br />
+                        O CANDIDATO/COOPERADO (titular de dados pessoais) ao
+                        enviar seu currículo, DECLARA expressamente seu
+                        CONSENTIMENTO, tendo plena ciência dos direitos e
+                        obrigações decorrentes deste instrumento, CONCORDANDO
+                        que seus dados pessoais sejam tratados na forma descrita
+                        acima, para a finalidade única e exclusiva de realizar
+                        as ações relacionadas ao recebimento de currículo, sua
+                        avaliação, e indicação para eventual alocação em projeto
+                        de tomadores de serviços da cooperativa, declarando
+                        ainda ter lido, compreendido e aceitado todos os termos
+                        e condições aqui descritos, em conformidade com a Lei nº
+                        13.709/18 - Lei Geral de Proteção de Dados Pessoais
+                        (LGPD). O Candidato, ainda, declara ciência e
+                        concordância de que seu currículo poderá ser armazenado
+                        em banco de dados para futuras alocações, até que ocorra
+                        a revogação deste Termo de Consentimento, o que poderá
+                        ser feito a qualquer momento por meio do canal de
+                        atendimento aos direitos dos titulares através deste
+                        contato:_______.
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
         <div class="container">
             <section class="header">
                 <h2>Cadastrar currículo</h2>
@@ -69,12 +90,14 @@
 
                 <!-- CPF: -->
                 <div class="form-content">
-                    <label for="cpf">CPF:</label>
+                    <label for="cpf">CPF: (Digite apenas números)</label>
                     <input
                         type="text"
                         id="cpf"
                         name="cpf"
                         placeholder="Digite o seu CPF..."
+                        autocomplete="off"
+                        maxlength="14"
                     />
                     <a>Mensagem de erro...</a>
                 </div>
@@ -105,20 +128,27 @@
 
                 <!--Check:-->
                 <div class="form-content">
-                    <label for="checkbox">Aceita compartilhar os seus dados com a XCoop:</label>
+                    <label for="checkbox"
+                        >Aceita compartilhar os seus dados com a XCoop:</label
+                    >
                     <input type="checkbox" id="checkbox" />
                     <a>Mensagem de erro...</a>
                 </div>
 
                 <!-- Div para os termos de aceite -->
-            <div class="terms-container">
-                <label><a href="#" id="terms-link">Leia os termos de aceite...</a></label>
-            </div>
+                <div class="terms-container">
+                    <label
+                        ><a href="#" id="terms-link"
+                            >Leia os termos de aceite...</a
+                        ></label
+                    >
+                </div>
 
                 <button type="submit">Enviar</button>
             </form>
         </div>
 
         <script src="script.js"></script>
+        <script src="validation.js"></script>
     </body>
 </html>
