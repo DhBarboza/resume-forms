@@ -25,7 +25,7 @@ form.addEventListener("submit", (event) => {
     checkInputNome();
     checkInputEmail();
     checkInputCpf();
-    checkInputArquivo();
+    //checkInputArquivo();
     checkInputCheck();
     // checkInputMatricula();
 
@@ -44,7 +44,7 @@ function checkInputNome() {
 
     if (nameValue === "") {
         isValid = false;
-        errorView(nome, "Preencha o seu nome");
+        errorView(nome, "Preencha o seu nome completo");
     } else {
         const formItem = nome.parentElement;
         formItem.className = "form-content";
@@ -73,19 +73,6 @@ function checkInputCpf() {
         errorView(cpf, "Preencha com o seu cpf");
     } else {
         const formItem = cpf.parentElement;
-        formItem.className = "form-content";
-    }
-}
-
-// Verifica se o campo "arquivo" está preenchido:
-function checkInputArquivo() {
-    const arquivoValue = arquivo.value;
-
-    if (arquivoValue.length === 0) {
-        isValid = false;
-        errorView(arquivo, "Preencha com o seu cúrriculo");
-    } else {
-        const formItem = arquivo.parentElement;
         formItem.className = "form-content";
     }
 }
@@ -165,17 +152,17 @@ async function submitForm() {
             const icon = document.getElementById("icon");
             const message = modalContent.querySelector("p");
 
-            if (responseData.message === "Cadastro já existente !") {
+            if (responseData.message === "Pedido já existente !") {
                 icon.innerHTML = "&#9888;"; // Ícone de aviso
-                message.innerText = "Cadastro já existente !";
+                message.innerText = "Pedido já existente !";
             } else {
                 icon.innerHTML = "&#10004;"; // Ícone de sucesso
-                message.innerText = "Currículo cadastrado com sucesso !";
+                message.innerText = "Pedido efetuado com sucesso !";
             }
 
             popUp.style.display = "block";
 
-            if (responseData.message !== "Cadastro já existente !") {
+            if (responseData.message !== "Pedido já existente !") {
                 // Resetar o formulário após sucesso
                 form.reset();
                 // Resetar a exibição de erros
