@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="style.css" />
         <link rel="stylesheet" href="pop-up.css" />
         <link rel="stylesheet" href="terms-pop-up.css" />
+        <link rel="stylesheet" href="token.css" />
         <title>Formulário de Pedido de desligamento</title>
     </head>
     <body>
@@ -56,6 +57,17 @@
                         atendimento aos direitos dos titulares através deste
                         contato:_______.
                     </p>
+                </div>
+            </div>
+        </div>
+        <div id="token-pop-up" style="display: none">
+            <div id="overlay-token"></div>
+            <div id="modal-token">
+                <span id="close-token">&times;</span>
+                <div id="modal-token-content">
+                    <p>Digite o código de 6 números que acabamos de enviar ao seu email:</p>
+                    <input type="text" id="token-input" placeholder="Digite o código..." />
+                    <button id="submit">Validar</button>
                 </div>
             </div>
         </div>
