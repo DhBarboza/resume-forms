@@ -5,6 +5,7 @@ const cpf = document.getElementById("cpf");
 const matricula = document.getElementById("matricula");
 const arquivo = document.getElementById("file-upload");
 const check = document.getElementById("checkbox");
+const tokenInput = document.getElementById("token-input");
 let isValid = true;
 
 document.getElementById("close").addEventListener("click", function () {
@@ -20,6 +21,16 @@ document.getElementById("close-terms").addEventListener("click", function() {
     document.getElementById("terms-pop-up").style.display = "none";
 });
 
+document.getElementById("close-token").addEventListener("click", function() {
+    document.getElementById("token-pop-up").style.display = "none";
+    tokenInput.value = ""; // Resetar o campo de texto do token
+});
+
+document.getElementById("submit").addEventListener("click", function(event) {
+    event.preventDefault();
+    submitForm();
+});
+
 form.addEventListener("submit", (event) => {
     //event.preventDefault();
     checkInputNome();
@@ -27,7 +38,7 @@ form.addEventListener("submit", (event) => {
     checkInputCpf();
     //checkInputArquivo();
     checkInputCheck();
-    // checkInputMatricula();
+    //checkInputMatricula();
 
     // Prevenir envio do formulário se inválido
     if (!isValid) {
@@ -108,6 +119,7 @@ async function submitForm() {
     const cpf = formData.get("cpf");
     const matricula = formData.get("matricula");
     const file = formData.get("file-upload");
+    const tokenValue = tokenInput.value;
 
     //Variável que irá ler o arquivo
     const reader = new FileReader();
@@ -124,11 +136,12 @@ async function submitForm() {
             //file: `data:${file.type};base64,${base64File}`,
             file: base64File,
             fileName: file.name,
+            token: tokenValue,
         };
 
         //Armazena a url gerada no Power Automate
         const powerAutomateUrl =
-            "https://prod2-00.brazilsouth.logic.azure.com:443/workflows/fc458bc703644c0aad1ce89ed4364ead/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S-aUojVXjNaHBk4amiybGDeVIb3taHu_RhCuMOjxMkI";
+            "https://prod2-14.brazilsouth.logic.azure.com:443/workflows/88bfd45983e846cbbdd3fd4bc47d6efd/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=lvmUkPYHfUzrjPLplxYF77RVLyAsIiR9ARGwb5D7-Eg";
 
         //Enviando a requisição para o Power Automate
         try {
@@ -155,14 +168,24 @@ async function submitForm() {
             if (responseData.message === "Pedido já existente !") {
                 icon.innerHTML = "&#9888;"; // Ícone de aviso
                 message.innerText = "Pedido já existente !";
-            } else {
+                popUp.style.display = "block";
+            }else if (responseData.message === "Token") {
+                document.getElementById("token-pop-up").style.display = "block"; //Modal para inserir o token
+            }else if (responseData.message === "Token invalido"){
+                icon.innerHTML = "&#9888;"; // Ícone de aviso
+                message.innerText = "Código inválido !";
+                popUp.style.display = "block";
+            }
+            else {
+                document.getElementById("token-pop-up").style.display = "none";
                 icon.innerHTML = "&#10004;"; // Ícone de sucesso
                 message.innerText = "Pedido efetuado com sucesso !";
+                popUp.style.display = "block";
             }
 
-            popUp.style.display = "block";
+            //popUp.style.display = "block";
 
-            if (responseData.message !== "Pedido já existente !") {
+            if (responseData.message === "Pedido efetuado com sucesso !") {
                 // Resetar o formulário após sucesso
                 form.reset();
                 // Resetar a exibição de erros

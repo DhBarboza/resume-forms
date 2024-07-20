@@ -1,0 +1,139 @@
+/* Estilo para o modal de token */
+#token-pop-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+#overlay-token {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+#modal-token {
+    display: block;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 60%;
+    max-width: 600px;
+    height: auto;
+    max-height: 80%;
+    overflow: hidden; /* Remover barras de rolagem */
+    position: fixed;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#close-token {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#modal-token-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 20px;
+}
+
+#modal-token-content p {
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.6;
+    white-space: nowrap; /* Evitar quebra de linha */
+    overflow: hidden; /* Evitar overflow horizontal */
+    text-overflow: ellipsis; /* Mostrar reticências se o texto for longo demais */
+}
+
+#modal-token-content strong {
+    text-align: left;
+    display: block;
+    font-weight: bold;
+}
+
+#modal-token-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* Ajustar para ficar igual ao parágrafo */
+    box-sizing: border-box; /* Garantir que o padding não cause overflow */
+}
+
+#modal-token-content button {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: flex-end;
+}
+
+#modal-token-content button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #modal-token {
+        width: 80%;
+        padding: 20px;
+    }
+
+    #modal-token-content p {
+        font-size: 12px;
+    }
+
+    #modal-token-content input[type="text"] {
+        font-size: 12px;
+    }
+
+    #modal-token-content button {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #modal-token {
+        width: 90%;
+        padding: 10px;
+    }
+
+    #modal-token-content p {
+        font-size: 10px;
+    }
+
+    #modal-token-content input[type="text"] {
+        font-size: 10px;
+    }
+
+    #modal-token-content button {
+        font-size: 10px;
+    }
+}
