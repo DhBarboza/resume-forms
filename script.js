@@ -181,6 +181,7 @@ async function submitForm() {
                 icon.innerHTML = "&#10004;"; // Ícone de sucesso
                 message.innerText = "Pedido efetuado com sucesso !";
                 popUp.style.display = "block";
+                tokenInput.value = ""; // Resetar o campo de texto do token
             }
 
             //popUp.style.display = "block";
